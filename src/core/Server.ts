@@ -1,6 +1,6 @@
 import express, { Application } from 'express';
-import { loadControllers, scopePerRequest } from 'awilix-express';
 import cors from 'cors';
+import { loadControllers, scopePerRequest } from 'awilix-express';
 
 import container from '../core/Container';
 
@@ -8,28 +8,24 @@ export default class Server {
 
     private static _instance: Server;
 
-    public app: Application;
+    private app: Application;
     private port: string;
 
     private constructor() {
         this.app = express();
-        this.port = process.env.APP_SERVER_PORT || '8000';
-
-        this.middlewares();
+        this.port = process.env.APP_SERVER_PORT;
+        this.configurate();
     }
 
     public static get instance(): Server {
         return this._instance || ( this._instance = new this() );
     }
 
-    middlewares(): void {
+    configurate(): void {
         this.app.use( cors() );
         this.app.use( express.json() );
         this.app.use( scopePerRequest( container() ) );
-        this.app.use( loadControllers(
-            'controllers/*.js',
-            { cwd: `${__dirname}/../` }
-        ));
+        this.app.use( loadControllers( 'controllers/*.js', { cwd: `${__dirname}/../` } ));
     }
 
     listen(): void {
