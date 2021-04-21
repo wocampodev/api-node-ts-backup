@@ -1,10 +1,10 @@
-import MySQL from '../../../common/persistence/mysql.persistence';
+import MySQL from '../../../../../common/infrastructure/persistence/mysql.persistence';
 
-import { SubscriptionRepository } from '../../contracts/subscription.repository';
-import { Subscription } from '../../domain/subscription';
-import { SubscriptionCreateDto } from '../../dtos/subscription.dto';
+import { SubscriptionRepository } from '../../../domain/subscription.repository';
+import { Subscription } from '../../../domain/subscription';
+import { SubscriptionCreateDto } from '../../../domain/subscription.dto';
 
-export default class SubscriptionMySQLRepository implements SubscriptionRepository {
+class SubscriptionMySQLRepository implements SubscriptionRepository {
     
     public async all(): Promise<Subscription[]> {
         const [ data ] = await MySQL().execute(
@@ -59,3 +59,5 @@ export default class SubscriptionMySQLRepository implements SubscriptionReposito
     }
 
 }
+
+export default SubscriptionMySQLRepository;

@@ -1,9 +1,7 @@
 import { createContainer, asClass, AwilixContainer } from 'awilix';
 
-import SubscriptionMySQLRepository from '../repositories/implementation/mysql/subscription-mysql.repository';
-import SubscriptionService from '../services/subscription.service';
-
-import TestService from '../services/test.service';
+import SubscriptionMySQLRepository from '../app/subscription/infrastructure/persistence/mysql/subscription.repository';
+import SubscriptionService from '../app/subscription/application/subscription.service';
 
 export default (): AwilixContainer => {
     const container = createContainer({
@@ -15,7 +13,6 @@ export default (): AwilixContainer => {
 
         // Services
         subscriptionService: asClass(SubscriptionService).scoped(),
-        testService: asClass(TestService).scoped()
     });
     return container;
 };

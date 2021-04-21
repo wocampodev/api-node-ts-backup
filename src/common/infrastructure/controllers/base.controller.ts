@@ -1,8 +1,8 @@
 import { Response } from "express";
 
-import ApplicationException from "../common/exceptions/application.exception";
+import ApplicationException from "../../domain/exceptions/application.exception";
 
-export default abstract class BaseController {
+abstract class BaseController {
 
     handleException( error: Error, res: Response ): void | Error {
         if ( error instanceof ApplicationException ) {
@@ -12,4 +12,6 @@ export default abstract class BaseController {
         }
     }
 
-}  
+}
+
+export default BaseController;

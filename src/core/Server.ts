@@ -4,7 +4,7 @@ import { loadControllers, scopePerRequest } from 'awilix-express';
 
 import container from '../core/Container';
 
-export default class Server {
+class Server {
 
     private static _instance: Server;
 
@@ -25,7 +25,10 @@ export default class Server {
         this.app.use( cors() );
         this.app.use( express.json() );
         this.app.use( scopePerRequest( container() ) );
-        this.app.use( loadControllers( 'controllers/*.js', { cwd: `${__dirname}/../` } ));
+        this.app.use( loadControllers( 
+            'app/**/infrastructure/controllers/*.js', 
+            { cwd: `${__dirname}/../` } 
+        ));
     }
 
     listen(): void {
@@ -33,3 +36,5 @@ export default class Server {
     }
 
 }
+
+export default Server;

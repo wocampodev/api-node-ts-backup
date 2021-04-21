@@ -1,9 +1,10 @@
-import ApplicationException from "../common/exceptions/application.exception";
-import { SubscriptionRepository } from "../repositories/contracts/subscription.repository";
-import { Subscription } from "../repositories/domain/subscription";
-import { SubscriptionCreateDto, SubscriptionUpdateDto } from "../repositories/dtos/subscription.dto";
+import ApplicationException from "../../../common/domain/exceptions/application.exception";
 
-export default class SubscriptionService {
+import { SubscriptionRepository } from "../domain/subscription.repository";
+import { Subscription } from "../domain/subscription";
+import { SubscriptionCreateDto, SubscriptionUpdateDto } from "../domain/subscription.dto";
+
+class SubscriptionService {
 
     constructor( private readonly subscriptionRepository: SubscriptionRepository ) {}
 
@@ -23,7 +24,7 @@ export default class SubscriptionService {
             throw new ApplicationException('User subscription already exists.');
         }
 
-        return await this.subscriptionRepository.store( data as Subscription );
+        await this.subscriptionRepository.store( data as Subscription );
     }
     
     public async update( id: number, data: SubscriptionUpdateDto ): Promise<void | Error> {
@@ -45,3 +46,5 @@ export default class SubscriptionService {
     }
 
 }
+
+export default SubscriptionService;

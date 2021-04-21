@@ -1,12 +1,13 @@
 import { Request, Response } from 'express';
 import { route, GET, POST, PUT, DELETE } from 'awilix-express';
 
-import BaseController from './base.controller';
-import SubscriptionService from '../services/subscription.service';
-import { SubscriptionCreateDto, SubscriptionUpdateDto } from "../repositories/dtos/subscription.dto";
+import BaseController from '../../../../common/infrastructure/controllers/base.controller';
+
+import SubscriptionService from '../../application/subscription.service';
+import { SubscriptionCreateDto, SubscriptionUpdateDto } from "../../domain/subscription.dto";
 
 @route('/subscriptions')
-export default class SubscriptionController extends BaseController {
+class SubscriptionController extends BaseController {
 
     constructor( private readonly subscriptionService: SubscriptionService ) {
         super();
@@ -16,7 +17,7 @@ export default class SubscriptionController extends BaseController {
     public async index( req: Request, res: Response ): Promise<Response> {
         try {
             const subscriptions = await this.subscriptionService.all();
-
+            
             return res.status(200).json( subscriptions );
         } catch (error) {
             this.handleException( error, res );
@@ -96,3 +97,5 @@ export default class SubscriptionController extends BaseController {
     }
 
 }
+
+export default SubscriptionController;
