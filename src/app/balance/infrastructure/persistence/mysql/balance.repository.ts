@@ -41,7 +41,7 @@ class BalanceMySQLRepository implements BalanceRepository {
 
         const { user_id, amount } = entry;
         await MySQL().execute(
-            'INSERT INTO wallet_balance(user_id, amount, created_at) VALUES( ?, ?, ?, ? )',
+            'INSERT INTO wallet_balance(user_id, amount, created_at) VALUES( ?, ?, ? )',
             [ user_id, amount, new Date() ]
         );
     }
