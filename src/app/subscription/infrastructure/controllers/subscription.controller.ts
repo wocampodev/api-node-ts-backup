@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { route, GET, POST, PUT, DELETE } from 'awilix-express';
 
-import BaseController from '../../../../common/infrastructure/controllers/base.controller';
+import BaseController from '../../../shared/infrastructure/controllers/base.controller';
 
 import SubscriptionService from '../../application/subscription.service';
 import { SubscriptionCreateDto, SubscriptionUpdateDto } from "../../domain/subscription.dto";

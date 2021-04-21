@@ -1,6 +1,6 @@
-import { Subscription } from "./subscription";
+import Subscription from "./subscription";
 
-export interface SubscriptionRepository {
+interface SubscriptionRepository {
     
     all(): Promise<Subscription[]>;
 
@@ -15,3 +15,5 @@ export interface SubscriptionRepository {
     remove( id: number ): Promise<void>;
     
 }
+
+export default SubscriptionRepository;

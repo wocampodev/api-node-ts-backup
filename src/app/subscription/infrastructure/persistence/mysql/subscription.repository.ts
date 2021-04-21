@@ -1,14 +1,14 @@
-import MySQL from '../../../../../common/infrastructure/persistence/mysql.persistence';
+import MySQL from '../../../../shared/infrastructure/persistence/mysql.persistence';
 
-import { SubscriptionRepository } from '../../../domain/subscription.repository';
-import { Subscription } from '../../../domain/subscription';
+import SubscriptionRepository from '../../../domain/subscription.repository';
+import Subscription from '../../../domain/subscription';
 import { SubscriptionCreateDto } from '../../../domain/subscription.dto';
 
 class SubscriptionMySQLRepository implements SubscriptionRepository {
     
     public async all(): Promise<Subscription[]> {
         const [ data ] = await MySQL().execute(
-            "SELECT * FROM wallet_subscription ORDER BY id DESC"
+            'SELECT * FROM wallet_subscription ORDER BY id DESC'
         );
         return data as Subscription[];
     }
@@ -43,7 +43,7 @@ class SubscriptionMySQLRepository implements SubscriptionRepository {
         );
     }
     
-    public async update( entry: any ): Promise<void> {
+    public async update( entry: Subscription ): Promise<void> {
         const { id, user_id, code, amount, cron } = entry;
         await MySQL().execute(
             'UPDATE wallet_subscription SET user_id = ?, code = ?, amount = ?, cron = ?, updated_at = ? WHERE id = ?',

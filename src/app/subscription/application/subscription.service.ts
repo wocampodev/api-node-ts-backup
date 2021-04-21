@@ -1,7 +1,7 @@
-import ApplicationException from "../../../common/domain/exceptions/application.exception";
+import ApplicationException from "../../shared/domain/exceptions/application.exception";
 
 import { SubscriptionRepository } from "../domain/subscription.repository";
-import { Subscription } from "../domain/subscription";
+import Subscription from "../domain/subscription";
 import { SubscriptionCreateDto, SubscriptionUpdateDto } from "../domain/subscription.dto";
 
 class SubscriptionService {
