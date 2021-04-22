@@ -27,9 +27,11 @@
   "dependencies": {
     "awilix": "4.3.3",
     "awilix-express": "4.0.0",
+    "awilix-router-core": "^1.6.1",
     "cors": "2.8.5",
     "dotenv": "8.2.0",
     "express": "4.17.1",
+    "joi": "^17.4.0",
     "mysql2": "2.2.5"
   }
 }

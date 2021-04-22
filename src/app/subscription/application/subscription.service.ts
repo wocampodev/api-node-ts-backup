@@ -16,12 +16,12 @@ class SubscriptionService {
         return await this.subscriptionRepository.find( id );
     }
     
-    public async store( data: SubscriptionCreateDto ): Promise<void> {
+    public async store( data: SubscriptionCreateDto ): Promise<void | Error> {
         const { user_id, code } = data;
         const originalSubscription = await this.subscriptionRepository.findByUserAndCode( user_id, code );
 
         if ( originalSubscription ) {
-            throw new ApplicationException('User subscription already exists.');
+            throw new ApplicationException('User subscription already exists');
         }
 
         await this.subscriptionRepository.store( data as Subscription );
@@ -31,7 +31,7 @@ class SubscriptionService {
         const subscription = await this.subscriptionRepository.find( id );
 
         if ( !subscription ) {
-            throw new ApplicationException('Subscription not found.');
+            throw new ApplicationException('Subscription not found');
         }
 
         subscription.code = data.code;

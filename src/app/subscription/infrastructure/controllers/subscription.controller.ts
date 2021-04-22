@@ -1,10 +1,11 @@
 import { Request, Response } from 'express';
-import { route, GET, POST, PUT, DELETE } from 'awilix-express';
+import { route, GET, POST, PUT, DELETE, before } from 'awilix-express';
 
 import BaseController from '../../../shared/infrastructure/controllers/base.controller';
 
 import SubscriptionService from '../../application/subscription.service';
 import { SubscriptionCreateDto, SubscriptionUpdateDto } from "../../domain/subscription.dto";
+import validateSubscriptionStore from '../middlewares/subscription.store';
 
 @route('/subscriptions')
 class SubscriptionController extends BaseController {
@@ -43,9 +44,11 @@ class SubscriptionController extends BaseController {
     }
 
     @POST()
+    @before([ validateSubscriptionStore ])
     public async store( req: Request, res: Response ): Promise<Response> {
         try {
             const { subscription } = req.body;
+
             await this.subscriptionService.store({
                 code: subscription.code,
                 user_id: subscription.user_id,
