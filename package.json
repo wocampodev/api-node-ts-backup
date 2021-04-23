@@ -5,6 +5,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
+    "test": "mocha -r nodemon ./build ./build/**/infrastructure/tests/*.spec.js",
     "start:dev": "nodemon ./build",
     "lint": "eslint ./src/**",
     "lint:fix": "eslint ./src/** --fix"
@@ -13,14 +14,17 @@
   "author": "Walter Ocampo",
   "license": "ISC",
   "devDependencies": {
+    "@types/assert": "^1.5.4",
     "@types/cors": "2.8.10",
     "@types/dotenv": "8.2.0",
     "@types/express": "4.17.11",
+    "@types/mocha": "^8.2.2",
     "@types/mysql2": "github:types/mysql2",
     "@types/node": "14.14.41",
     "@typescript-eslint/eslint-plugin": "4.22.0",
     "@typescript-eslint/parser": "4.22.0",
     "eslint": "7.24.0",
+    "mocha": "^8.3.2",
     "nodemon": "2.0.7",
     "typescript": "4.2.4"
   },

@@ -55,14 +55,9 @@ class MovementService {
     }
 
     private async saveOutcome( data: MovementCreateDto, balance: Balance | null ): Promise<void | Error> {
-        if ( !balance ) {
-            throw new ApplicationException('User does not have a balance registered');
+        if ( !balance || ( balance.amount <= data.amount ) ) {
+            throw new ApplicationException('User does not have enough balance');
         }
-
-        if ( balance.amount < data.amount ) {
-            throw new ApplicationException('User does not have balance for the operation');
-        }
-
         balance.amount -= data.amount;
         await this.balanceRepository.update( balance );
         await this.movementRepository.store( data as Movement );

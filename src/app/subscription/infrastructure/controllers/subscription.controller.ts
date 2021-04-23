@@ -47,13 +47,13 @@ class SubscriptionController extends BaseController {
     @before([ validateSubscriptionStore ])
     public async store( req: Request, res: Response ): Promise<Response> {
         try {
-            const { subscription } = req.body;
+            const { code, user_id, amount, cron } = req.body.subscription;
 
             await this.subscriptionService.store({
-                code: subscription.code,
-                user_id: subscription.user_id,
-                amount: subscription.amount,
-                cron: subscription.cron,
+                code,
+                user_id: parseInt(user_id),
+                amount: Number(amount),
+                cron,
             } as SubscriptionCreateDto );
 
             return res.status(201).json({
