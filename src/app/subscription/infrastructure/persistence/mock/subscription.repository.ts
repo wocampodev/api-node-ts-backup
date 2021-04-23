@@ -21,7 +21,7 @@ class SubscriptionMockRepository implements SubscriptionRepository {
         const result = table.find(x => x.user_id === userId && x.code === code);
 
         if (result) {
-            return Object.assign({ ...result });;
+            return Object.assign({ ...result });
         }
 
         return null;
@@ -53,7 +53,7 @@ class SubscriptionMockRepository implements SubscriptionRepository {
         const table = DATABASE.subscriptions as Subscription[];
         const now = new Date();
 
-        let originalEntry = table.find(x => x.id === entry.id);
+        const originalEntry = table.find(x => x.id === entry.id);
 
         if (originalEntry) {
             originalEntry.code = entry.code;
@@ -65,9 +65,9 @@ class SubscriptionMockRepository implements SubscriptionRepository {
     }
 
     public async remove(id: number): Promise<void> {
-        let table = DATABASE.subscriptions as Subscription[];
+        const table = DATABASE.subscriptions as Subscription[];
 
-        table = table.filter(x => x.id !== id);
+        DATABASE.subscriptions = table.filter(x => x.id !== id);
     }
 
 }

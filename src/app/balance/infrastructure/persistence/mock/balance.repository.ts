@@ -21,7 +21,7 @@ class BalanceMockRepository implements BalanceRepository {
         if ( !data ) {
             return null;
         }
-        return Object.assign({ ...data });;
+        return Object.assign({ ...data });
     }
     
     public async all(): Promise<Balance[]> {
@@ -43,7 +43,7 @@ class BalanceMockRepository implements BalanceRepository {
     
     public async update( entry: Balance ): Promise<void> {
         const table = DATABASE.balances as Balance[];
-        let originalEntry = table.find( row => row.id === entry.id );
+        const originalEntry = table.find( row => row.id === entry.id );
     
         if ( originalEntry ) {
             originalEntry.user_id = entry.user_id;
@@ -53,8 +53,8 @@ class BalanceMockRepository implements BalanceRepository {
     }
     
     public async remove( id: number ): Promise<void> {
-        let table = DATABASE.balances as Balance[];
-        table = table.filter( row => row.id !== id );
+        const table = DATABASE.balances as Balance[];
+        DATABASE.balances = table.filter( row => row.id !== id );
     }
 
 }
