@@ -7,6 +7,9 @@
   "scripts": {
     "test": "mocha -r nodemon ./build ./build/**/infrastructure/tests/*.spec.js",
     "start:dev": "nodemon ./build",
+    "start:prod": "node ./build",
+    "build:dev": "set NODE_ENV=development set APP_ENV=development",
+    "build:prod": "set NODE_ENV=production set APP_ENV=production",
     "lint": "eslint ./src/**",
     "lint:fix": "eslint ./src/** --fix"
   },
