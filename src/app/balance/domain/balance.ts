@@ -1,9 +1,9 @@
 interface Balance {
-    id         : number;
-    user_id    : number;
-    amount     : number;
-    created_at : Date | null;
-    updated_at : Date | null;
+    id: number;
+    userId: number;
+    amount: number;
+    createdAt: Date | null;
+    updatedAt: Date | null;
 }
 
 export default Balance;

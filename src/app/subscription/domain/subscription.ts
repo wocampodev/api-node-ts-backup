@@ -1,11 +1,11 @@
 interface Subscription {
-    id         : number;
-    code       : string;
-    user_id    : number;
-    amount     : number;
-    cron       : string;
-    created_at : Date | null;
-    updated_at : Date | null;
+    id: number;
+    code: string;
+    userId: number;
+    amount: number;
+    cron: string;
+    createdAt: Date | null;
+    updatedAt: Date | null;
 }
 
 export default Subscription;

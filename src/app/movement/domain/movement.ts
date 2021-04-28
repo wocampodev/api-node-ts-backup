@@ -1,12 +1,12 @@
-import { MovementType } from "../../shared/domain/enums/movement.type";
+import { MovementType } from '../../shared/domain/enums/movement.type';
 
 interface Movement {
-    id         : number;
-    user_id    : number;
-    type       : MovementType;
-    amount     : number;
-    created_at : Date | null;
-    updated_at : Date | null;
+    id: number;
+    userId: number;
+    type: MovementType;
+    amount: number;
+    createdAt: Date | null;
+    updatedAt: Date | null;
 }
 
 export default Movement;

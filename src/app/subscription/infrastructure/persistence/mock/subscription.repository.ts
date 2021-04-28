@@ -4,10 +4,9 @@ import SubscriptionRepository from '../../../domain/subscription.repository';
 import Subscription from '../../../domain/subscription';
 
 class SubscriptionMockRepository implements SubscriptionRepository {
-
     public async find(id: number): Promise<Subscription | null> {
         const table = DATABASE.subscriptions as Subscription[];
-        const result = table.find(x => x.id === id);
+        const result = table.find((x) => x.id === id);
 
         if (result) {
             return Object.assign({ ...result });
@@ -18,7 +17,7 @@ class SubscriptionMockRepository implements SubscriptionRepository {
 
     public async findByUserAndCode(userId: number, code: string): Promise<Subscription | null> {
         const table = DATABASE.subscriptions as Subscription[];
-        const result = table.find(x => x.user_id === userId && x.code === code);
+        const result = table.find((x) => x.userId === userId && x.code === code);
 
         if (result) {
             return Object.assign({ ...result });
@@ -42,10 +41,10 @@ class SubscriptionMockRepository implements SubscriptionRepository {
             id: DATABASE._subscriptionId,
             code: entry.code,
             amount: entry.amount,
-            user_id: entry.user_id,
+            userId: entry.userId,
             cron: entry.cron,
-            created_at: now,
-            updated_at: null,
+            createdAt: now,
+            updatedAt: null,
         } as Subscription);
     }
 
@@ -53,23 +52,22 @@ class SubscriptionMockRepository implements SubscriptionRepository {
         const table = DATABASE.subscriptions as Subscription[];
         const now = new Date();
 
-        const originalEntry = table.find(x => x.id === entry.id);
+        const originalEntry = table.find((x) => x.id === entry.id);
 
         if (originalEntry) {
             originalEntry.code = entry.code;
-            originalEntry.user_id = entry.user_id;
+            originalEntry.userId = entry.userId;
             originalEntry.amount = entry.amount;
             originalEntry.cron = entry.cron;
-            originalEntry.updated_at = now;
+            originalEntry.updatedAt = now;
         }
     }
 
     public async remove(id: number): Promise<void> {
         const table = DATABASE.subscriptions as Subscription[];
 
-        DATABASE.subscriptions = table.filter(x => x.id !== id);
+        DATABASE.subscriptions = table.filter((x) => x.id !== id);
     }
-
 }
 
 export default SubscriptionMockRepository;

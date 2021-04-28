@@ -4,101 +4,99 @@ import { route, GET, POST, PUT, DELETE, before } from 'awilix-express';
 import BaseController from '../../../shared/infrastructure/controllers/base.controller';
 
 import SubscriptionService from '../../application/subscription.service';
-import { SubscriptionCreateDto, SubscriptionUpdateDto } from "../../domain/subscription.dto";
+import { SubscriptionCreateDto, SubscriptionUpdateDto } from '../../domain/subscription.dto';
 import validateSubscriptionStore from '../middlewares/subscription.store';
 
 @route('/subscriptions')
 class SubscriptionController extends BaseController {
-
-    constructor( private readonly subscriptionService: SubscriptionService ) {
+    constructor(private readonly subscriptionService: SubscriptionService) {
         super();
     }
 
     @GET()
-    public async index( req: Request, res: Response ): Promise<Response> {
+    public async index(req: Request, res: Response): Promise<Response> {
         try {
             const subscriptions = await this.subscriptionService.all();
-            
-            return res.status(200).json( subscriptions );
+
+            return res.status(200).json(subscriptions);
         } catch (error) {
-            this.handleException( error, res );
+            this.handleException(error, res);
         }
     }
-    
+
     @route('/:id')
     @GET()
-    public async find( req: Request, res: Response ): Promise<Response> {
+    public async find(req: Request, res: Response): Promise<Response> {
         try {
-            const id = parseInt( req.params.id );
-            const subscription = await this.subscriptionService.find( id );
+            const id = parseInt(req.params.id);
+            const subscription = await this.subscriptionService.find(id);
 
-            if ( !subscription ) {
+            if (!subscription) {
                 return res.status(404).json({
-                    msg: 'Subscription not found'
+                    msg: 'Subscription not found',
                 });
             }
-            return res.status(200).json( subscription );
+            return res.status(200).json(subscription);
         } catch (error) {
-            this.handleException( error, res );
+            this.handleException(error, res);
         }
     }
 
     @POST()
-    @before([ validateSubscriptionStore ])
-    public async store( req: Request, res: Response ): Promise<Response> {
+    @before([validateSubscriptionStore])
+    public async store(req: Request, res: Response): Promise<Response> {
         try {
-            const { code, user_id, amount, cron } = req.body.subscription;
+            const { code, userId, amount, cron } = req.body.subscription;
 
             await this.subscriptionService.store({
                 code,
-                user_id: parseInt(user_id),
+                userId: parseInt(userId),
                 amount: Number(amount),
                 cron,
-            } as SubscriptionCreateDto );
+            } as SubscriptionCreateDto);
 
             return res.status(201).json({
-                message: 'Subscription created'
+                message: 'Subscription created',
             });
         } catch (error) {
-            this.handleException( error, res );
+            this.handleException(error, res);
         }
     }
 
     @route('/:id')
     @PUT()
-    public async update( req: Request, res: Response ): Promise<Response> {
+    public async update(req: Request, res: Response): Promise<Response> {
         try {
-            const id = parseInt( req.params.id );
+            const id = parseInt(req.params.id);
             const { subscription } = req.body;
-            await this.subscriptionService.update( id, {
+            await this.subscriptionService.update(id, {
                 code: subscription.code,
                 amount: subscription.amount,
                 cron: subscription.cron,
-            } as SubscriptionUpdateDto );
+            } as SubscriptionUpdateDto);
 
             return res.status(200).json({
-                message: 'Subscription updated'
+                message: 'Subscription updated',
             });
         } catch (error) {
-            this.handleException( error, res );
+            this.handleException(error, res);
         }
     }
 
     @route('/:id')
     @DELETE()
-    public async delete( req: Request, res: Response ): Promise<Response> {
+    public async delete(req: Request, res: Response): Promise<Response> {
         try {
-            const id = parseInt( req.params.id );
-            await this.subscriptionService.remove( id );
+            const id = parseInt(req.params.id);
+            await this.subscriptionService.remove(id);
 
             return res.status(200).json({
-                message: 'Subscription deleted'
+                message: 'Subscription deleted',
             });
         } catch (error) {
-            this.handleException( error, res );
+            this.handleException(error, res);
         }
     }
-
 }
 
 export default SubscriptionController;

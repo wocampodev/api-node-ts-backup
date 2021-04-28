@@ -1,13 +1,11 @@
 import { CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 abstract class CommonEntity {
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
 
-    @CreateDateColumn()
-    created_at: Date;
-
-    @UpdateDateColumn()
-    updated_at: Date | null;
-
+    @UpdateDateColumn({ name: 'updated_at' })
+    updatedAt: Date | null;
 }
 
 export default CommonEntity;
